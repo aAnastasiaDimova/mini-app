@@ -24,6 +24,7 @@ const Form = styled.form`
   width: 100%;
   max-width: 400px;
   margin: 10px;
+  box-sizing: border-box;
 
   input {
     padding: 12px 16px;
@@ -55,45 +56,43 @@ const InputWrapper = styled.div<{ error: boolean }>`
     letter-spacing: 0.01em;
     border: 2px solid rgba(0, 0, 0, 0.05);
     border-radius: 14px;
-    12px 16px;
+    padding: 12px 16px;
     margin-bottom: 8px;
+    box-sizing: border-box;
   }
 
   label {
     position: absolute;
     left: 16px;
     top: 19px;
-    color: #e6e6e6;
+    color: #A2ACB0;
     background: #fff;
     padding: 0 4px;
     font-size: 16px;
     pointer-events: none;
     transition: 0.2s;
     z-index: 1;
+        top: -10px;
+    left: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 147%;
+    letter-spacing: 0.01em;
+    border 2px solid #A2ACB0;
   }
 
   input:focus + label,
   input:not(:placeholder-shown) + label {
     top: -10px;
     left: 8px;
-    color: #007AFF;
     font-weight: 600;
     font-size: 15px;
     line-height: 147%;
     letter-spacing: 0.01em;
   }
- 
-  input:focus {
-    border-color: #007AFF;
-  }
 
-  input:-webkit-autofill + label,
-  input:-moz-autofill + label {
-    top: 6px;
-    transform: none;
-    font-size: 12px;
-    color: #555;
-  }
+
+
 
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
@@ -168,9 +167,9 @@ const SubmitButton = styled.button<{ disabled: boolean }>`
 
 const EyeButton = styled.button`
   position: absolute;
-  right: 16px;
+  right: 12px;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-60%);
   background: none;
   border: none;
   cursor: pointer;
@@ -182,13 +181,7 @@ const EyeButton = styled.button`
   justify-content: center;
   z-index: 2;
 
-  &:hover {
-    color: #646cff;
-  }
 
-  &:focus {
-    outline: none;
-  }
 `;
 
 const LoginPage: React.FC = () => {
@@ -348,4 +341,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default LoginPage; 

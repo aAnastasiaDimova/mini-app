@@ -92,6 +92,7 @@ const CtaButton = styled.button<{ gradient: string; disabled?: boolean }>`
   cursor: pointer;
   background-image: ${({ gradient }) => gradient};
   opacity: ${({ disabled }) => (disabled ? 0.7 : 1)};
+   box-sizing: border-box;
 `;
 
 const BackButton = styled.button`

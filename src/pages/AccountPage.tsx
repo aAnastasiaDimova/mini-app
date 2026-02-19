@@ -94,12 +94,14 @@ const AccountMeta = styled.div`
   color: #6b7280;
   font-size: 16px;
   line-height: 150%;
+  
 
 `;
 
 const Field = styled.div`
   position: relative;
   margin-top: 12px;
+  
 `;
 
 const FieldLabel = styled.label<{ isEditing?: boolean; isFocused?: boolean }>`
@@ -119,6 +121,7 @@ const FieldLabel = styled.label<{ isEditing?: boolean; isFocused?: boolean }>`
   line-height: 1;
   pointer-events: none;
   transition: color 0.2s ease;
+   box-sizing: border-box;
   
  
 `;
@@ -184,8 +187,10 @@ const Textarea = styled.textarea`
 `;
 
 const WebsiteField = styled.div`
-margin-top:30px;
-  
+  margin-top: 30px;
+  width: 100%;
+  position: relative;
+  box-sizing: border-box;
 `;
 
 const WebsiteInput = styled.input<{ isEditing?: boolean; readOnly?: boolean }>`
@@ -199,6 +204,7 @@ const WebsiteInput = styled.input<{ isEditing?: boolean; readOnly?: boolean }>`
   line-height: 150%;
   cursor: ${props => (props.readOnly ? 'pointer' : 'text')};
   transition: all 0.2s ease;
+  box-sizing: border-box;
 
   ${props =>
     props.isEditing &&
@@ -211,10 +217,7 @@ const WebsiteInput = styled.input<{ isEditing?: boolean; readOnly?: boolean }>`
     &:focus {
       border-color: #1f6feb;
       outline: none;
-
     }
-
-  }
   `}
 `;
 
@@ -235,6 +238,7 @@ const EditCheckboxList = styled.div`
   flex-wrap: wrap;
   gap: 8px;
   padding: 8px;
+  
 `;
 
 const EditCheckboxItem = styled.label<{ checked: boolean }>`
@@ -250,6 +254,7 @@ const EditCheckboxItem = styled.label<{ checked: boolean }>`
   background: ${props => props.checked ? '#eef2ff' : '#f3f4f6'};
   color: #4b5563;
   cursor: pointer;
+  
  
 `;
 
@@ -313,6 +318,7 @@ const TechInput = styled.input`
   font-size: 15px;
   background: white;
    padding: 16px;
+    box-sizing: border-box;
 
 
 
@@ -338,6 +344,7 @@ const AddButton = styled.button`
   margin-top: 20px;
   align-self: flex-start;
   width: 100%;
+   box-sizing: border-box;
 `;
 
 const DirectionEditContainer = styled.div<{ isEditing?: boolean }>`
@@ -582,64 +589,87 @@ const handleSave = () => {
                     </EditCheckboxList>
                   </DirectionEditContainer>
                 </Field>
+                <div style={{ 
+  display: 'flex', 
+  gap: 12, 
+  marginTop: 20, 
+  width: '100%', 
+  boxSizing: 'border-box',
+  padding: '0 4px'
+}}>
+  <Field style={{ 
+    flex: 1, 
+    minWidth: 0,
+    boxSizing: 'border-box',
+    width: '100%' 
+  }}>
+    <FieldLabel 
+      isEditing={isEditing}
+      isFocused={focusedField === 'age'}
+    >
+      Возраст
+    </FieldLabel>
+    <Input
+      isEditing={isEditing}
+      type="number"
+      min={14}
+      max={25}
+      value={form.age}
+      onFocus={() => setFocusedField('age')}
+      onBlur={() => setFocusedField(null)}
+      onChange={e => {
+        const val = e.target.value;
+        if (val === '' || (+val >= 14 && +val <= 25)) {
+          updateField('age', val);
+        }
+      }}
+      style={{                              
+        appearance: 'none',
+        WebkitAppearance: 'none',
+        MozAppearance: 'none',
+        backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>")`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'right 16px center',
+        backgroundSize: '16px',
+        paddingRight: '40px',
+        width: '100%',
+        boxSizing: 'border-box'
+      }}
+    />
+  </Field>
 
-                <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
-                  <Field style={{ flex: 1 }}>
-                    <FieldLabel 
-                      isEditing={isEditing}
-                      isFocused={focusedField === 'age'}
-                    >
-                      Возраст
-                    </FieldLabel>
-                    <Input
-                      isEditing={isEditing}
-                      type="number"
-                      min={14}
-                      max={25}
-                      value={form.age}
-                      onFocus={() => setFocusedField('age')}
-                      onBlur={() => setFocusedField(null)}
-                      onChange={e => {
-                        const val = e.target.value;
-                        if (val === '' || (+val >= 14 && +val <= 25)) {
-                          updateField('age', val);
-                        }
-                      }}
-                            style={{                              
-                              appearance: 'none',
-                              WebkitAppearance: 'none',
-                              MozAppearance: 'none',
-                              backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>")`,
-                              backgroundRepeat: 'no-repeat',
-                              backgroundPosition: 'right 16px center',
-                              backgroundSize: '16px',
-                              paddingRight: '40px',
-    }}
-                    />
-                  </Field>
-
-                  <Field style={{ flex: 1, position: 'relative' }}>
-                    <FieldLabel 
-                      isEditing={isEditing}
-                      isFocused={focusedField === 'course'}
-                    >
-                      Курс
-                    </FieldLabel>
-                    <Select
-                      isEditing={isEditing}
-                      value={form.course}
-                      onFocus={() => setFocusedField('course')}
-                      onBlur={() => setFocusedField(null)}
-                      onChange={e => updateField('course', e.target.value)}
-                    >
-                      <option value="">Выбери курс</option>
-                      <option value="1 курс">1 курс</option>
-                      <option value="2 курс">2 курс</option>
-                      <option value="3 курс">3 курс</option>
-                      <option value="4 курс">4 курс</option>
-                    </Select>
-                  </Field>
-                </div>
+  <Field style={{ 
+    flex: 1, 
+    position: 'relative',
+    minWidth: 0,
+    boxSizing: 'border-box',
+    width: '100%'
+  }}>
+    <FieldLabel 
+      isEditing={isEditing}
+      isFocused={focusedField === 'course'}
+    >
+      Курс
+    </FieldLabel>
+    <Select
+      isEditing={isEditing}
+      value={form.course}
+      onFocus={() => setFocusedField('course')}
+      onBlur={() => setFocusedField(null)}
+      onChange={e => updateField('course', e.target.value)}
+      style={{ 
+        width: '100%',
+        boxSizing: 'border-box'
+      }}
+    >
+      <option value="">Выбери курс</option>
+      <option value="1 курс">1 курс</option>
+      <option value="2 курс">2 курс</option>
+      <option value="3 курс">3 курс</option>
+      <option value="4 курс">4 курс</option>
+    </Select>
+  </Field>
+</div>
               </>
             ) : (
               <>
