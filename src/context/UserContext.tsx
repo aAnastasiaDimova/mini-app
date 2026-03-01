@@ -6,7 +6,7 @@ import React, {
   type ReactNode,
 } from "react";
 import type { UserProfile, UserContextType } from "../types/user";
-import { MOCK_USER } from "../mock/mock";
+import { MOCK_USER } from "../hooks/useAuthorizade";
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 

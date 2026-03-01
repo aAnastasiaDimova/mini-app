@@ -1,6 +1,6 @@
 .my-events-container {
   min-height: 100vh;
-  background-color: #f8f9fa;
+  background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -58,6 +58,7 @@
   z-index: 2;
   transition: color 0.3s ease;
   border-radius: 20px;
+  user-select: none;
 }
 
 .tab.active {
@@ -67,7 +68,7 @@
 
 /* Белая "пилюля" для активной вкладки */
 .tabs-container::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 4px;
   left: 4px;
@@ -94,7 +95,9 @@
   padding: 0; /* внутренние отступы перенесены в нижний блок */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   position: relative;
   overflow: hidden; /* скругления для верхнего цвета */
 }

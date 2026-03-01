@@ -1,3 +1,14 @@
+:root {
+  --bg-color: #fbfbfb;
+  --text-color: #000000;
+  --card-color: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg-color: #0f0f0f;
+  --text-color: #ffffff;
+  --card-color: #323232;
+}
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +21,8 @@ body,
 #root,
 html,
 body {
-  background: #ffffff;
+  background: var(--bg-color);
+  color: var(--text-color);
 }
 
 .bottom-nav {
@@ -19,7 +31,8 @@ body {
   right: 0;
   bottom: 0;
   height: 60px;
-  background: #ffffff;
+  background: var(--bg-color);
+  color: var(--text-color);
   border-top: 2px solid #eee;
   display: flex;
   justify-content: space-around;

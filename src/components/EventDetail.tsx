@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import type { EventItem } from "../types/events";
 import { fetchEventById } from "../api/events";
 import { useMyEvents } from "../context/MyEventsContext";
-import { fallbackEvents } from "../mock/mock";
+import { fallbackEvents } from "../hooks/useFallBackEvents";
 import * as S from "../styles/styles.eventDetail";
 
 const gradients: Record<string, string> = {

@@ -1,4 +1,4 @@
-import { useState, useEffect, type ComponentType } from "react";
+import { useState, useEffect, type ComponentType, useMemo } from "react";
 import EventsByType from "../components/EventsByType";
 import {
   IconActions,
@@ -10,15 +10,21 @@ import {
 import type { EventItem } from "../types/events";
 import { fetchAllEvents } from "../api/events";
 import * as S from "../styles/styles.events";
-import { bannerSlides, mockEvents } from "../mock/mock";
+import { mockEvents } from "../hooks/useEventsDate";
+import { bannerSlides } from "../hooks/useBannerDate";
 import type { IconBaseProps } from "../types/colors";
 import { EventList } from "../components/EventList";
+import { toTranslit } from "../utils/toTranslit";
+import { useNavigate, useParams } from "react-router-dom";
 
 function AllEvents() {
+  const navigate = useNavigate();
+  const { type: slug } = useParams<{ type?: string }>();
+
   const [currentSlide, setCurrentSlide] = useState(1);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(true);
-  const [selectedType, setSelectedType] = useState<string | null>(null);
+  // const [selectedType, setSelectedType] = useState<string | null>(null);
 
   const extendedSlides = [
     bannerSlides[bannerSlides.length - 1],
@@ -33,6 +39,10 @@ function AllEvents() {
     "Вакансия",
     "События",
   ];
+
+  const slugToType = useMemo(() => {
+    return Object.fromEntries(allTypes.map((t) => [toTranslit(t), t]));
+  }, []);
 
   const [events, setEvents] = useState<EventItem[]>(mockEvents);
 
@@ -64,8 +74,14 @@ function AllEvents() {
     События: IconCalendar,
   };
 
+  const originalType = slug ? slugToType[slug] : null;
+
   useEffect(() => {
-    if (!isAutoPlaying || selectedType) return;
+    setIsAutoPlaying(!originalType);
+  }, [originalType]);
+
+  useEffect(() => {
+    if (!isAutoPlaying || originalType) return;
 
     const interval = setInterval(() => {
       setCurrentSlide((prev) => {
@@ -85,7 +101,7 @@ function AllEvents() {
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, extendedSlides.length, selectedType]);
+  }, [isAutoPlaying, extendedSlides.length, originalType]);
 
   const goToSlide = (index: number) => {
     const extendedIndex = index + 1;
@@ -96,21 +112,20 @@ function AllEvents() {
   };
 
   const handleShowAll = (type: string) => {
-    setSelectedType(type);
+    navigate(`/allEvents/${toTranslit(type)}`);
     setIsAutoPlaying(false);
   };
 
-  const handleBackToAll = () => {
-    setSelectedType(null);
-    setIsAutoPlaying(true);
-  };
+  // const handleBackToAll = () => {
+  //   setSelectedType(null);
+  //   setIsAutoPlaying(true);
+  // };
 
-  if (selectedType) {
+  if (originalType) {
     return (
       <EventsByType
-        type={selectedType}
-        events={eventsByType[selectedType] || []}
-        onBack={handleBackToAll}
+        type={originalType}
+        events={eventsByType[originalType] || []}
       />
     );
   }

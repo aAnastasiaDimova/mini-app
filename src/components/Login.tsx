@@ -4,8 +4,8 @@ import { useUser } from "../context/UserContext";
 import { IconEye, IconEyeOff } from "../icon/icons";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { MOCK_LOGIN, MOCK_PASSWORD } from "../mock/mock";
-import { MOCK_USERID } from "../mock/mock";
+import { MOCK_LOGIN, MOCK_PASSWORD } from "../hooks/useAuthorizade";
+import { MOCK_USERID } from "../hooks/useAuthorizade";
 
 const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordRegex =
