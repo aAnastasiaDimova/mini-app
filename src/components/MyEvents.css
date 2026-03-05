@@ -38,7 +38,7 @@
 /* Вкладки - сегментированный контрол */
 .tabs-container {
   display: flex;
-  background-color: #f0f0f0;
+  background-color: var(--tabs-myEvent-color);
   border-radius: 25px;
   padding: 4px;
   margin: 16px 15px;
@@ -52,7 +52,7 @@
   border: none;
   font-size: 16px;
   font-weight: 500;
-  color: #333;
+  color: var(--text-color);
   cursor: pointer;
   position: relative;
   z-index: 2;
@@ -62,7 +62,7 @@
 }
 
 .tab.active {
-  color: #000;
+  color: var(--text-color);
   font-weight: 600;
 }
 
@@ -74,7 +74,7 @@
   left: 4px;
   right: 50%;
   bottom: 4px;
-  background-color: white;
+  background-color: var(--tabs-active-myEvent-color);
   border-radius: 20px;
   transition: transform 0.3s ease;
   z-index: 1;
@@ -118,15 +118,16 @@
 
 /* Информация о событии */
 .event-info {
+  background-color: var(--card-bg-color);
   flex: 1;
   min-width: 0;
   padding: 16px; /* переносим паддинг сюда */
 }
 
 .event-title {
+  color: var(--text-color);
   font-size: 16px;
   font-weight: 600;
-  color: #333;
   margin: 0 0 4px 0;
   line-height: 1.3;
 }

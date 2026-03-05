@@ -1,38 +1,46 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import * as S from "../styles/styles.BottomNav";
 import { IconChannel, IconAddHome, IconPerson } from "../icon/icons";
+import { RouteName } from "../router/routes";
+import { useTheme } from "../context/ThemeContext";
 
 function BottomNav() {
+  const { theme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
 
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <S.BottomNav>
+    <S.BottomNav theme={theme}>
       <S.NavItem
-        onClick={() => navigate("/allEvents")}
-        active={isActive("/allEvents")}
+        onClick={() => navigate(RouteName.ALLEVENTS)}
+        active={isActive(RouteName.ALLEVENTS)}
       >
         <span role="img" aria-label="events">
-          <IconAddHome color={isActive("/allEvents") ? "blue" : "gray"} />
+          <IconAddHome
+            color={isActive(RouteName.ALLEVENTS) ? "blue" : "gray"}
+          />
         </span>
         <div>Все ивенты</div>
       </S.NavItem>
 
-      <S.NavItem onClick={() => navigate("/my")} active={isActive("/my")}>
+      <S.NavItem
+        onClick={() => navigate(RouteName.MYIVENTS)}
+        active={isActive(RouteName.MYIVENTS)}
+      >
         <span role="img" aria-label="my-events">
-          <IconChannel color={isActive("/my") ? "blue" : "gray"} />
+          <IconChannel color={isActive(RouteName.MYIVENTS) ? "blue" : "gray"} />
         </span>
         <div>Мои ивенты</div>
       </S.NavItem>
 
       <S.NavItem
-        onClick={() => navigate("/account")}
-        active={isActive("/account")}
+        onClick={() => navigate(RouteName.ACCOUNT)}
+        active={isActive(RouteName.ACCOUNT)}
       >
         <span role="img" aria-label="account">
-          <IconPerson color={isActive("/account") ? "blue" : "gray"} />
+          <IconPerson color={isActive(RouteName.ACCOUNT) ? "blue" : "gray"} />
         </span>
         <div>Аккаунт</div>
       </S.NavItem>

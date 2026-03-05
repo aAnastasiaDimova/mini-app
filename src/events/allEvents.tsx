@@ -16,6 +16,7 @@ import type { IconBaseProps } from "../types/colors";
 import { EventList } from "../components/EventList";
 import { toTranslit } from "../utils/toTranslit";
 import { useNavigate, useParams } from "react-router-dom";
+import { RouteName } from "../router/routes";
 
 function AllEvents() {
   const navigate = useNavigate();
@@ -112,7 +113,7 @@ function AllEvents() {
   };
 
   const handleShowAll = (type: string) => {
-    navigate(`/allEvents/${toTranslit(type)}`);
+    navigate(`${RouteName.ALLEVENTS}/${toTranslit(type)}`);
     setIsAutoPlaying(false);
   };
 

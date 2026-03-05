@@ -1,6 +1,10 @@
 import type { IconBaseProps } from "../types/colors";
 import { colorMap } from "../types/colors";
 
+export enum iconColorsEnum {
+  primery = "" 
+};
+
 export const IconEyeOff = () => (
   <svg
     fill="#A2ACB0"

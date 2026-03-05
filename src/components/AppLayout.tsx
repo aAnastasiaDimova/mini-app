@@ -2,25 +2,30 @@ import { Outlet, useLocation } from "react-router-dom";
 import BottomNav from "./BottomNav";
 import Header from "./Header";
 import "../index.css";
+import { RouteName } from "../router/routes";
 
 export default function AppLayout() {
   const location = useLocation();
   const path = location.pathname;
   const state = location.state as { isEditing?: boolean } | null;
 
-  const basePaths = ["/allEvents", "/my", "/account"];
-  const showClose = !basePaths.includes(path);
+  const basePaths = [
+    RouteName.ALLEVENTS,
+    RouteName.MYIVENTS,
+    RouteName.ACCOUNT,
+  ];
+  const showClose = !basePaths.toString().includes(path);
 
   const getTitle = () => {
-    if (path === "/account" && state?.isEditing) {
+    if (path === RouteName.ACCOUNT && state?.isEditing) {
       return "Редактирование";
     }
     switch (path) {
-      case "/allEvents":
+      case RouteName.ALLEVENTS:
         return "События";
-      case "/my":
+      case RouteName.MYIVENTS:
         return "Мои события";
-      case "/account":
+      case RouteName.ACCOUNT:
         return "Аккаунт";
       default:
         if (path.startsWith("/events/")) {

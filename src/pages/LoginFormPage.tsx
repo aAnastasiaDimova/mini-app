@@ -2,197 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import { IconEye, IconEyeOff } from "../icon/icons";
-import styled from "@emotion/styled";
-import { css } from "@emotion/react";
+import * as S from "../styles/styles.LoginFormPage";
 import {
   MOCK_USERID,
   MOCK_LOGIN,
   MOCK_PASSWORD,
 } from "../hooks/useAuthorizade";
+import { RouteName } from "../router/routes";
 
 const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordRegex =
   /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?`~]{6,}$/;
-
-const LoginContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  font-family: Arial, sans-serif;
-  box-sizing: border-box;
-`;
-
-const Form = styled.form`
-  width: 100%;
-  max-width: 400px;
-  margin: 10px;
-
-  input {
-    padding: 12px 16px;
-    font-size: 16px;
-    outline: none;
-  }
-
-  label {
-    top: -10px;
-    left: 8px;
-    color: #a2acb0;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 147%;
-    letter-spacing: 0.01em;
-  }
-`;
-
-const InputWrapper = styled.div<{ error: boolean }>`
-  width: 100%;
-  position: relative;
-  margin-bottom: 20px;
-
-  input {
-    width: 100%;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 150%;
-    letter-spacing: 0.01em;
-    border: 2px solid rgba(0, 0, 0, 0.05);
-    border-radius: 14px;
-    12px 16px;
-    margin-bottom: 8px;
-  }
-
-  label {
-    position: absolute;
-    left: 16px;
-    top: 19px;
-    color: #e6e6e6;
-    background: #fff;
-    padding: 0 4px;
-    font-size: 16px;
-    pointer-events: none;
-    transition: 0.2s;
-    z-index: 1;
-  }
-
-  input:focus + label,
-  input:not(:placeholder-shown) + label {
-    top: -10px;
-    left: 8px;
-    color: #007AFF;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 147%;
-    letter-spacing: 0.01em;
-  }
- 
-  input:focus {
-    border-color: #007AFF;
-  }
-
-  input:-webkit-autofill + label,
-  input:-moz-autofill + label {
-    top: 6px;
-    transform: none;
-    font-size: 12px;
-    color: #555;
-  }
-
-  input:-webkit-autofill,
-  input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus,
-  input:-webkit-autofill:active {
-    transition:
-      background-color 9999s ease-in-out 0s,
-      color 9999s ease-in-out 0s;
-    -webkit-text-fill-color: #000 !important;
-  }
-
-  ${({ error }) =>
-    error &&
-    css`
-      input {
-        border-color: #e53935 !important;
-        border-width: 2px !important;
-      }
-
-      input:focus {
-        border-color: #e53935 !important;
-      }
-
-      label {
-        color: #e53935 !important;
-      }
-    `}
-`;
-
-const InputHint = styled.div`
-  position: static;
-  color: #e53935;
-  font-size: 12px;
-  margin-top: 0;
-  margin-bottom: 8px;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  box-shadow: none;
-  min-width: 0;
-  max-width: 100%;
-  opacity: 1;
-  transition: opacity 0.2s;
-  word-break: break-word;
-  text-align: center;
-`;
-
-const SubmitButton = styled.button<{ disabled: boolean }>`
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 24px;
-  display: flex;
-  justify-content: center;
-  background: ${({ disabled }) => (disabled ? "#b3d1ff" : "#007aff")};
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 15px 12px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 153%;
-  letter-spacing: 0.01em;
-  text-align: center;
-  color: #fff;
-  border: 1px solid #e6e6e6;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  transition: background 0.2s;
-  pointer-events: auto;
-`;
-
-const EyeButton = styled.button`
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  font-size: 18px;
-  color: #a2acb0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-
-  &:hover {
-    color: #646cff;
-  }
-
-  &:focus {
-    outline: none;
-  }
-`;
 
 const LoginPage: React.FC = () => {
   const [login, setLogin] = useState("");
@@ -241,7 +61,7 @@ const LoginPage: React.FC = () => {
     // Если валидация прошла, проверяем авторизацию
     if (login === MOCK_LOGIN && password === MOCK_PASSWORD) {
       await fetchUserProfile(MOCK_USERID);
-      navigate("/account");
+      navigate(RouteName.ACCOUNT);
     } else {
       setIsAuthError(true);
       setAuthMessage("Неверный логин или пароль");
@@ -268,8 +88,8 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <LoginContainer>
-      <Form id="login-form" onSubmit={handleSubmit}>
+    <S.LoginContainer>
+      <S.Form id="login-form" onSubmit={handleSubmit}>
         {/* ловушки для автозаполнения — не мешают сабмиту и не совпадают по name */}
         <input
           type="text"
@@ -298,7 +118,7 @@ const LoginPage: React.FC = () => {
 
         {/* Логин */}
         <div className="form-group">
-          <InputWrapper error={loginError}>
+          <S.InputWrapper error={loginError}>
             <input
               type="email"
               id="login"
@@ -310,12 +130,12 @@ const LoginPage: React.FC = () => {
               placeholder=" "
             />
             <label htmlFor="login">Логин</label>
-          </InputWrapper>
+          </S.InputWrapper>
         </div>
 
         {/* Пароль */}
         <div className="form-group">
-          <InputWrapper error={passwordError}>
+          <S.InputWrapper error={passwordError}>
             <input
               type={showPassword ? "text" : "password"}
               id="password"
@@ -328,26 +148,26 @@ const LoginPage: React.FC = () => {
             />
             <label htmlFor="password">Пароль</label>
             {/* Кнопка-глаз */}
-            <EyeButton
+            <S.EyeButton
               type="button"
               onClick={() => setShowPassword((v) => !v)}
               tabIndex={-1}
               aria-label={showPassword ? "Скрыть пароль" : "Показать пароль"}
             >
               {showPassword ? <IconEye /> : <IconEyeOff />}
-            </EyeButton>
-          </InputWrapper>
+            </S.EyeButton>
+          </S.InputWrapper>
         </div>
 
         {/* Сообщение об ошибке авторизации */}
-        {authMessage && <InputHint>{authMessage}</InputHint>}
+        {authMessage && <S.InputHint>{authMessage}</S.InputHint>}
 
         {/* Кнопка входа */}
-        <SubmitButton type="submit" disabled={!isFormFilled}>
+        <S.SubmitButton type="submit" disabled={!isFormFilled}>
           Войти
-        </SubmitButton>
-      </Form>
-    </LoginContainer>
+        </S.SubmitButton>
+      </S.Form>
+    </S.LoginContainer>
   );
 };
 

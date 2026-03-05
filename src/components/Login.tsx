@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 import { css } from "@emotion/react";
 import { MOCK_LOGIN, MOCK_PASSWORD } from "../hooks/useAuthorizade";
 import { MOCK_USERID } from "../hooks/useAuthorizade";
+import { RouteName } from "../router/routes";
 
 const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordRegex =
@@ -236,7 +237,7 @@ const LoginForm: React.FC = () => {
 
       // Загружаем профиль пользователя с бэка
       await fetchUserProfile(MOCK_USERID);
-      navigate("/account");
+      navigate(RouteName.ACCOUNT);
     } else {
       setIsAuthError(true);
       setAuthMessage("Неверный логин или пароль");

@@ -1,13 +1,13 @@
 import styled from "@emotion/styled";
 
-export const BottomNav = styled.div`
+export const BottomNav = styled.div<{ theme: string }>`
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   height: 64px;
-  background: #fff;
-  border-top: 1px solid #eee;
+  background: ${(p) => (p.theme === "light" ? "#fff" : "#212121")};
+  border-top: ${(p) => (p.theme === "light" ? "1px solid #eee" : "")};
   display: flex;
   justify-content: space-around;
   align-items: center;
