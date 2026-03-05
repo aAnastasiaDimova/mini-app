@@ -1,12 +1,10 @@
-import { useUser } from '../context/UserContext';
-import { useRef, useState } from 'react';
-import styled from '@emotion/styled';
-import { IconCop, IconCopy, IconEdit } from '../icon/icons.tsx';
-
+import { useUser } from "../context/UserContext";
+import { useRef, useState } from "react";
+import styled from "@emotion/styled";
+import { IconCop, IconCopy, IconEdit } from "../icon/icons.tsx";
 
 const AccountContainer = styled.div<{ isEditing: boolean }>`
-
-  ${props => props.isEditing && `background: white;`}
+  ${(props) => props.isEditing && `background: white;`}
 `;
 
 const AccountCard = styled.div`
@@ -14,7 +12,7 @@ const AccountCard = styled.div`
   padding-bottom: 76px;
   background: white;
   border-radius: 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
 `;
 
 const AccountHeader = styled.div`
@@ -43,8 +41,10 @@ const AccountAction = styled.button`
   cursor: pointer;
   background: #f3f4f6;
   color: #111827;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.12s ease, background-color 0.12s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.12s ease,
+    background-color 0.12s ease;
 
   &:hover {
     transform: translateY(-1px);
@@ -110,7 +110,7 @@ const FieldLabel = styled.div<{ isEditing?: boolean }>`
   line-height: 1;
   pointer-events: none;
 
-  ${props => props.isEditing && `color: #1f6feb;`}
+  ${(props) => props.isEditing && `color: #1f6feb;`}
 `;
 
 const Input = styled.input<{ isEditing?: boolean }>`
@@ -126,11 +126,13 @@ const Input = styled.input<{ isEditing?: boolean }>`
 
   &:focus {
     border-color: #1f6feb;
-    box-shadow: 0 0 0 3px rgba(31,111,235,0.15);
+    box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.15);
     outline: none;
   }
 
-  ${props => props.isEditing && `
+  ${(props) =>
+    props.isEditing &&
+    `
     border-color: #1f6feb;
   `}
 
@@ -148,7 +150,9 @@ const TextareaWrapper = styled.div<{ isEditing?: boolean }>`
   background: white;
   overflow-y: auto;
 
-  ${props => props.isEditing && `
+  ${(props) =>
+    props.isEditing &&
+    `
     border-color: #1f6feb;
 
     &:focus-within {
@@ -180,13 +184,15 @@ const WebsiteInput = styled.input<{ isEditing?: boolean; readOnly?: boolean }>`
   padding: 16px;
   border: none;
   border-radius: 10px;
-  background: rgba(67,120,255,0.05);
+  background: rgba(67, 120, 255, 0.05);
   color: #1f6feb;
   font-size: 16px;
   line-height: 150%;
-  cursor: ${props => props.readOnly ? 'pointer' : 'text'};
+  cursor: ${(props) => (props.readOnly ? "pointer" : "text")};
 
-  ${props => props.isEditing && `
+  ${(props) =>
+    props.isEditing &&
+    `
     border: 1px solid #1f6feb;
     background: white;
     color: #111827;
@@ -211,7 +217,7 @@ const CopyButton = styled.button<{ copied?: boolean }>`
   cursor: pointer;
 
   &:hover {
-    background: ${props => props.copied ? '#059669' : '#e5e7eb'};
+    background: ${(props) => (props.copied ? "#059669" : "#e5e7eb")};
   }
 `;
 
@@ -227,8 +233,8 @@ const EditCheckboxItem = styled.label<{ checked: boolean }>`
   gap: 6px;
   padding: 8px 14px;
   border-radius: 10px;
-  background: ${props => props.checked ? '#eef2ff' : '#f3f4f6'};
-  color: ${props => props.checked ? '#1f6feb' : '#4b5563'};
+  background: ${(props) => (props.checked ? "#eef2ff" : "#f3f4f6")};
+  color: ${(props) => (props.checked ? "#1f6feb" : "#4b5563")};
   font-size: 14px;
   cursor: pointer;
 
@@ -250,7 +256,6 @@ const AccountTag = styled.span`
   font-size: 15px;
   color: #374151;
 `;
-
 
 const TechSection = styled.div`
   margin-top: 24px;
@@ -304,7 +309,7 @@ const TechInput = styled.input`
 
   &:focus {
     border-color: #1f6feb;
-    box-shadow: 0 0 0 3px rgba(31,111,235,0.12);
+    box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.12);
     outline: none;
   }
 
@@ -314,9 +319,9 @@ const TechInput = styled.input`
 `;
 
 const AddButton = styled.button`
- padding: 10px 28px;
-  background: #4378FF1A;
-  color: #007AFF;
+  padding: 10px 28px;
+  background: #4378ff1a;
+  color: #007aff;
   border: none;
   border-radius: 8px;
   font-size: 15px;
@@ -326,19 +331,21 @@ const AddButton = styled.button`
   align-self: flex-start;
   width: 100%;
 `;
+
 const DirectionEditContainer = styled.div<{ isEditing?: boolean }>`
-  border: 1px solid ${({ isEditing }) => (isEditing ? '#1f6feb' : '#e5e7eb')};
+  border: 1px solid ${({ isEditing }) => (isEditing ? "#1f6feb" : "#e5e7eb")};
   border-radius: 10px;
-  background: ${({ isEditing }) => (isEditing ? '#ffffff' : '#f9fafb')};
+  background: ${({ isEditing }) => (isEditing ? "#ffffff" : "#f9fafb")};
   padding: 12px 14px;
   margin-top: 30px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 
   ${({ isEditing }) =>
     isEditing &&
     `
       border-color: #1f6feb;
-  
   `}
 `;
 
@@ -348,29 +355,30 @@ export default function Account() {
   const [isCopied, setIsCopied] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
+  // Безопасная инициализация формы с приведением к строке
   const [form, setForm] = useState({
-    fullName: user?.fullName ?? '',
-    age: String(user?.age ?? ''),
-    course: user?.course ?? '',
-    website: user?.website ?? '',
-    username: user?.username ?? '',
-    email: user?.email ?? '',
-    phone: user?.phone ?? '',
-    about: user?.about ?? '',
-    techStack: (user?.techStack ?? []).join(', '),
+    fullName: user?.fullName ?? "",
+    age: user?.age ? String(user.age) : "",
+    course: user?.course ?? "",
+    website: user?.website ?? "",
+    username: user?.username ?? "",
+    email: user?.email ?? "",
+    phone: user?.phone ?? "",
+    about: user?.about ?? "",
+    techStack: (user?.techStack ?? []).join(", "),
   });
 
   const [directionTags, setDirectionTags] = useState<string[]>(
-    user?.direction?.split(/[,;/]\s*/).filter(Boolean) ?? ['Frontend']
+    user?.direction?.split(/[,;/]\s*/).filter(Boolean) ?? ["Frontend"],
   );
 
   const [techTags, setTechTags] = useState<string[]>(user?.techStack ?? []);
-  const [tagInput, setTagInput] = useState('');
+  const [tagInput, setTagInput] = useState("");
 
-  const AVAILABLE_DIRECTIONS = ['Frontend', 'Backend', 'UX/UI'];
+  const AVAILABLE_DIRECTIONS = ["Frontend", "Backend", "UX/UI"];
 
   const updateField = (key: keyof typeof form, value: string) => {
-    setForm(prev => ({ ...prev, [key]: value }));
+    setForm((prev) => ({ ...prev, [key]: value }));
   };
 
   if (!user) return <div style={{ padding: 16 }}>Вы не авторизованы.</div>;
@@ -389,20 +397,21 @@ export default function Account() {
                 <AccountAction
                   onClick={() => {
                     setIsEditing(false);
-                    
                     setForm({
-                      fullName: user.fullName ?? '',
-                      age: String(user.age ?? ''),
-                      course: user.course ?? '',
-                      website: user.website ?? '',
-                      username: user.username ?? '',
-                      email: user.email ?? '',
-                      phone: user.phone ?? '',
-                      about: user.about ?? '',
-                      techStack: (user.techStack ?? []).join(', '),
+                      fullName: user.fullName ?? "",
+                      age: user.age ? String(user.age) : "",
+                      course: user.course ?? "",
+                      website: user.website ?? "",
+                      username: user.username ?? "",
+                      email: user.email ?? "",
+                      phone: user.phone ?? "",
+                      about: user.about ?? "",
+                      techStack: (user.techStack ?? []).join(", "),
                     });
                     setDirectionTags(
-                      user.direction?.split(/[,;/]\s*/).filter(Boolean) ?? ['Frontend']
+                      user.direction?.split(/[,;/]\s*/).filter(Boolean) ?? [
+                        "Frontend",
+                      ],
                     );
                     setTechTags(user.techStack ?? []);
                   }}
@@ -416,7 +425,7 @@ export default function Account() {
                     updateUserProfile({
                       fullName: form.fullName,
                       age: Number(form.age) || user.age,
-                      direction: directionTags.join(', '),
+                      direction: directionTags.join(", "),
                       course: form.course,
                       website: form.website,
                       username: form.username,
@@ -447,56 +456,57 @@ export default function Account() {
           <AccountName>
             {isEditing ? (
               <>
-
                 <Field>
                   <FieldLabel isEditing={isEditing}>ФИО</FieldLabel>
-                  <Input  isEditing={isEditing}
-                    value={form.fullName}
-                    onChange={e => updateField('fullName', e.target.value)}
+                  <Input
+                    isEditing={isEditing}
+                    value={String(form.fullName || "")}
+                    onChange={(e) => updateField("fullName", e.target.value)}
                   />
                 </Field>
 
-    
                 <Field>
                   <DirectionEditContainer isEditing={isEditing}>
-                  <FieldLabel isEditing={isEditing}>Направление</FieldLabel>
-                  <EditCheckboxList>
-                    {AVAILABLE_DIRECTIONS.map(opt => {
-                      const checked = directionTags.includes(opt);
-                      return (
-                        <EditCheckboxItem key={opt} checked={checked}>
-                          <input
-                            type="checkbox"
-                            checked={checked}
-                            onChange={e => {
-                              if (e.target.checked) {
-                                setDirectionTags(prev => [...prev, opt]);
-                              } else {
-                                setDirectionTags(prev => prev.filter(v => v !== opt));
-                              }
-                            }}
-                          />
-                          <span>{opt}</span>
-                        </EditCheckboxItem>
-                      );
-                    })}
-                  </EditCheckboxList>
+                    <FieldLabel isEditing={isEditing}>Направление</FieldLabel>
+                    <EditCheckboxList>
+                      {AVAILABLE_DIRECTIONS.map((opt) => {
+                        const checked = directionTags.includes(opt);
+                        return (
+                          <EditCheckboxItem key={opt} checked={checked}>
+                            <input
+                              type="checkbox"
+                              checked={checked}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setDirectionTags((prev) => [...prev, opt]);
+                                } else {
+                                  setDirectionTags((prev) =>
+                                    prev.filter((v) => v !== opt),
+                                  );
+                                }
+                              }}
+                            />
+                            <span>{opt}</span>
+                          </EditCheckboxItem>
+                        );
+                      })}
+                    </EditCheckboxList>
                   </DirectionEditContainer>
                 </Field>
 
-      
-                <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+                <div style={{ display: "flex", gap: 12, marginTop: 16 }}>
                   <Field style={{ flex: 1 }}>
                     <FieldLabel isEditing={isEditing}>Возраст</FieldLabel>
-                    <Input isEditing={isEditing}
+                    <Input
+                      isEditing={isEditing}
                       type="number"
                       min={14}
                       max={25}
-                      value={form.age}
-                      onChange={e => {
+                      value={String(form.age || "")}
+                      onChange={(e) => {
                         const val = e.target.value;
-                        if (val === '' || (+val >= 14 && +val <= 25)) {
-                          updateField('age', val);
+                        if (val === "" || (+val >= 14 && +val <= 25)) {
+                          updateField("age", val);
                         }
                       }}
                     />
@@ -506,15 +516,17 @@ export default function Account() {
                     <FieldLabel isEditing={isEditing}>Курс</FieldLabel>
                     <select
                       style={{
-                        width: '100%',
-                        padding: '16px',
-                        borderRadius: '10px',
-                        fontSize: '16px',
-                        border: isEditing ? '1px solid #1f6feb' : '1px solid #e5e7eb',
-                        color: isEditing ? '#111827' : '#374151',
+                        width: "100%",
+                        padding: "16px",
+                        borderRadius: "10px",
+                        fontSize: "16px",
+                        border: isEditing
+                          ? "1px solid #1f6feb"
+                          : "1px solid #e5e7eb",
+                        color: isEditing ? "#111827" : "#374151",
                       }}
-                      value={form.course}
-                      onChange={e => updateField('course', e.target.value)}
+                      value={String(form.course || "")}
+                      onChange={(e) => updateField("course", e.target.value)}
                     >
                       <option value="">Выбери курс</option>
                       <option value="1">1 курс</option>
@@ -536,24 +548,29 @@ export default function Account() {
           </AccountName>
         </AccountHeader>
 
-
         <WebsiteField>
-          <WebsiteInput isEditing={isEditing}
-            value={isEditing ? form.website : (user.website ?? '')}
+          <WebsiteInput
+            isEditing={isEditing}
+            value={
+              isEditing
+                ? String(form.website || "")
+                : String(user.website || "")
+            }
             readOnly={!isEditing}
-            onChange={e => updateField('website', e.target.value)}
+            onChange={(e) => updateField("website", e.target.value)}
             onClick={() => {
-              if (!isEditing && user.website) window.open(user.website, '_blank');
+              if (!isEditing && user.website)
+                window.open(user.website, "_blank");
             }}
             placeholder="Ссылка на портфолио"
           />
           {!isEditing && user.website && (
             <CopyButton
               copied={isCopied}
-              onClick={async e => {
+              onClick={async (e) => {
                 e.stopPropagation();
                 try {
-                  await navigator.clipboard.writeText(user.website || '');
+                  await navigator.clipboard.writeText(user.website || "");
                   setIsCopied(true);
                   setTimeout(() => setIsCopied(false), 2000);
                 } catch {}
@@ -564,92 +581,119 @@ export default function Account() {
           )}
         </WebsiteField>
 
+        <div style={{ display: "grid", gap: "20px", marginTop: "16px" }}>
+          {["username", "email", "phone"].map((key) => {
+            // Безопасное получение значения
+            let displayValue = "";
 
-        <div style={{ display: 'grid', gap: '20px', marginTop: '16px' }}>
-          {['username', 'email', 'phone'].map(key => (
-            <Field key={key}>
-              <FieldLabel isEditing={isEditing}>
-                {key === 'username' ? 'Username' : key === 'email' ? 'Почта' : 'Телефон'}
-              </FieldLabel>
-              <Input isEditing={isEditing}
-                disabled={!isEditing}
-                value={isEditing ? form[key as keyof typeof form] : (user[key as keyof typeof user] ?? '')}
-                onChange={e => updateField(key as keyof typeof form, e.target.value)}
-              />
-            </Field>
-          ))}
+            if (isEditing) {
+              displayValue = String(form[key as keyof typeof form] || "");
+            } else {
+              const userValue = user[key as keyof typeof user];
+              displayValue =
+                userValue !== null && userValue !== undefined
+                  ? String(userValue)
+                  : "";
+            }
+
+            return (
+              <Field key={key}>
+                <FieldLabel isEditing={isEditing}>
+                  {key === "username"
+                    ? "Username"
+                    : key === "email"
+                      ? "Почта"
+                      : "Телефон"}
+                </FieldLabel>
+                <Input
+                  isEditing={isEditing}
+                  disabled={!isEditing}
+                  value={displayValue}
+                  onChange={(e) =>
+                    updateField(key as keyof typeof form, e.target.value)
+                  }
+                />
+              </Field>
+            );
+          })}
 
           <Field>
             <FieldLabel isEditing={isEditing}>О себе</FieldLabel>
             <TextareaWrapper isEditing={isEditing}>
-              <Textarea 
+              <Textarea
                 disabled={!isEditing}
-                value={isEditing ? form.about : (user.about ?? '')}
-                onChange={e => updateField('about', e.target.value)}
+                value={
+                  isEditing
+                    ? String(form.about || "")
+                    : String(user.about || "")
+                }
+                onChange={(e) => updateField("about", e.target.value)}
               />
             </TextareaWrapper>
           </Field>
         </div>
 
-{isEditing ? (
-  <TechSection>
-    
-    <TechTitle>Стек технологий</TechTitle> 
+        {isEditing ? (
+          <TechSection>
+            <TechTitle>Стек технологий</TechTitle>
 
-    <TagsBox>
-      {techTags.map(t => (
-        <TechTag key={t}>
-          #{t}
-          <RemoveTag onClick={() => setTechTags(prev => prev.filter(x => x !== t))}>
-            ×
-          </RemoveTag>
-        </TechTag>
-      ))}
-    </TagsBox>
+            <TagsBox>
+              {techTags.map((t) => (
+                <TechTag key={t}>
+                  #{t}
+                  <RemoveTag
+                    onClick={() =>
+                      setTechTags((prev) => prev.filter((x) => x !== t))
+                    }
+                  >
+                    ×
+                  </RemoveTag>
+                </TechTag>
+              ))}
+            </TagsBox>
 
-    <TechInput 
-      value={tagInput}
-      onChange={e => setTagInput(e.target.value)}
-      placeholder="Технология"
-      onKeyDown={e => {
-        if ((e.key === 'Enter' || e.key === ',') && tagInput.trim()) {
-          e.preventDefault();
-          const val = tagInput.trim();
-          if (!techTags.includes(val)) {
-            setTechTags([...techTags, val]);
-          }
-          setTagInput('');
-        }
-      }}
-    />
+            <TechInput
+              value={tagInput}
+              onChange={(e) => setTagInput(e.target.value)}
+              placeholder="Технология"
+              onKeyDown={(e) => {
+                if ((e.key === "Enter" || e.key === ",") && tagInput.trim()) {
+                  e.preventDefault();
+                  const val = tagInput.trim();
+                  if (!techTags.includes(val)) {
+                    setTechTags([...techTags, val]);
+                  }
+                  setTagInput("");
+                }
+              }}
+            />
 
-    <AddButton
-      type="button"
-      onClick={() => {
-        if (tagInput.trim()) {
-          const val = tagInput.trim();
-          if (!techTags.includes(val)) {
-            setTechTags([...techTags, val]);
-          }
-          setTagInput('');
-        }
-      }}
-      disabled={!tagInput.trim()}
-    >
-      Добавить
-    </AddButton>
-  </TechSection>
-) : (
-
-  <TechSection>
-    <TechTitle>Стек технологий</TechTitle>
-    <AccountTagsList>
-      {techTags.map(tag => (
-        <AccountTag key={tag}>#{tag}</AccountTag>
-      ))}
-    </AccountTagsList>
-  </TechSection>
-)}
+            <AddButton
+              type="button"
+              onClick={() => {
+                if (tagInput.trim()) {
+                  const val = tagInput.trim();
+                  if (!techTags.includes(val)) {
+                    setTechTags([...techTags, val]);
+                  }
+                  setTagInput("");
+                }
+              }}
+              disabled={!tagInput.trim()}
+            >
+              Добавить
+            </AddButton>
+          </TechSection>
+        ) : (
+          <TechSection>
+            <TechTitle>Стек технологий</TechTitle>
+            <AccountTagsList>
+              {techTags.map((tag) => (
+                <AccountTag key={tag}>#{tag}</AccountTag>
+              ))}
+            </AccountTagsList>
+          </TechSection>
+        )}
       </AccountCard>
     </AccountContainer>
   );

@@ -18,9 +18,7 @@ export default function Header({
 
   return (
     <S.HeaderContainer theme={theme}>
-      {/* <button onClick={toggleTheme}>
-        {theme === "light" ? "тёмная" : "светлая"}
-      </button> */}
+      <button onClick={toggleTheme}>{theme === "light" ? "🌙" : "☀️"}</button>
       {showClose && (
         <S.CloseButton theme={theme} onClick={() => navigate(-1)}>
           ×

@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import EventCard from "../components/EventCard";
 import type { EventItem } from "../types/events";
 import "./EventsByType.css";
