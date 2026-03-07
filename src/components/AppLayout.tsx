@@ -1,41 +1,44 @@
-import { Outlet, useLocation } from 'react-router-dom';
-import BottomNav from './BottomNav';     
-import Header from './Header';          
-import '../index.css';
+import { Outlet, useLocation } from "react-router-dom";
+import BottomNav from "./BottomNav";
+import Header from "./Header";
+import "../index.css";
+import { RouteName } from "../router/routes";
 
 export default function AppLayout() {
   const location = useLocation();
   const path = location.pathname;
   const state = location.state as { isEditing?: boolean } | null;
 
+  const basePaths = [
+    RouteName.ALLEVENTS,
+    RouteName.MYIVENTS,
+    RouteName.ACCOUNT,
+  ];
+  const showClose = !basePaths.toString().includes(path);
+
   const getTitle = () => {
-    if (path === '/account' && state?.isEditing) {
-      return 'Редактирование';
+    if (path === RouteName.ACCOUNT && state?.isEditing) {
+      return "Редактирование";
     }
-
     switch (path) {
-      case '/allEvents':
-        return 'События';
-
-      case '/my':
-        return 'Мои события';          
-
-      case '/account':
-        return 'Аккаунт';
-
+      case RouteName.ALLEVENTS:
+        return "События";
+      case RouteName.MYIVENTS:
+        return "Мои события";
+      case RouteName.ACCOUNT:
+        return "Аккаунт";
       default:
-        if (path.startsWith('/events/')) {
-          return 'Детали события';
+        if (path.startsWith("/events/")) {
+          return "Детали события";
         }
-
-        return 'Приложение';
+        return "Приложение";
     }
   };
 
   return (
-    <div className="app-layout-wrapper">  
-      <Header title={getTitle()} />
-      <main style={{ paddingTop: '56px', paddingBottom: '60px' }}> 
+    <div className="app-layout-wrapper">
+      <Header title={getTitle()} showClose={showClose} />
+      <main style={{ paddingTop: "56px", paddingBottom: "60px" }}>
         <Outlet />
       </main>
       <BottomNav />

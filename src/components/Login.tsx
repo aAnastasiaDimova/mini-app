@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/UserContext";
+import { observer } from "mobx-react-lite";
 import { IconEye, IconEyeOff } from "../icon/icons";
 import styled from "@emotion/styled";
 import { css } from "@emotion/react";
-import { MOCK_LOGIN, MOCK_PASSWORD } from "../mock/mock";
-import { MOCK_USERID } from "../mock/mock";
+import { MOCK_LOGIN, MOCK_PASSWORD } from "../hooks/useAuthorizade";
+import { MOCK_USERID } from "../hooks/useAuthorizade";
+import { RouteName } from "../router/routes";
+import { useStore } from "../store/storeProvider";
 
 const emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const passwordRegex =
@@ -183,7 +185,7 @@ const SubmitButton = styled.button<{ disabled: boolean }>`
     `}
 `;
 
-const LoginForm: React.FC = () => {
+const LoginForm: React.FC = observer(() => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
@@ -192,7 +194,7 @@ const LoginForm: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isAuthError, setIsAuthError] = useState(false);
   const navigate = useNavigate();
-  const { fetchUserProfile } = useUser();
+  const { userStore } = useStore();
 
   const isFormFilled = login.trim() !== "" && password.trim() !== "";
 
@@ -235,8 +237,8 @@ const LoginForm: React.FC = () => {
       // Пока используем моковый userId
 
       // Загружаем профиль пользователя с бэка
-      await fetchUserProfile(MOCK_USERID);
-      navigate("/account");
+      await userStore.fetchUserProfile(MOCK_USERID);
+      navigate(RouteName.ACCOUNT);
     } else {
       setIsAuthError(true);
       setAuthMessage("Неверный логин или пароль");
@@ -356,6 +358,6 @@ const LoginForm: React.FC = () => {
       </Form>
     </LoginContainer>
   );
-};
+});
 
 export default LoginForm;

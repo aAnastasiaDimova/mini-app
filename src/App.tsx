@@ -1,17 +1,14 @@
 import { HashRouter } from "react-router-dom";
-import { AppRoutes } from "./router/routes";
-import { MyEventsProvider } from "./context/MyEventsContext";
-import { UserProvider } from "./context/UserContext";
+import AppRoutes from "./router/routes";
+import { StoreProvider } from "./store/storeProvider.tsx";
 
 function App() {
   return (
-    <UserProvider>
-      <MyEventsProvider>
-        <HashRouter >
-          <AppRoutes />
-        </HashRouter>
-      </MyEventsProvider>
-    </UserProvider>
+    <StoreProvider>
+      <HashRouter>
+        <AppRoutes />
+      </HashRouter>
+    </StoreProvider>
   );
 }
 

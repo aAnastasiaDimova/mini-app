@@ -13,12 +13,15 @@ const gradientsByType: Record<string, string> = {
   Вакансия: "linear-gradient(135deg, #87C0FF, #007AFF)",
 };
 
-export const EventCardContainer = styled.div`
+export const EventCardContainer = styled.div<{ theme: string }>`
   min-width: 340px;
   max-width: 358px;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 1px 24px rgba(162, 89, 255, 0.12);
+  ${(p) =>
+    p.theme === "light"
+      ? "box-shadow: 0 1px 24px rgba(162, 89, 255, 0.12);"
+      : "box-shadow: 0px 32px 64px 0px #0000000A; box-shadow: 0px 0px 2px 1px #00000005;"}
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -32,12 +35,12 @@ export const EventCardContainer = styled.div`
   }
 `;
 
-export const BadgeNew = styled.span`
+export const BadgeNew = styled.span<{ theme: string }>`
   position: absolute;
   top: 16px;
   right: 16px;
-  background: #fff;
-  color: #000;
+  background: ${(p) => (p.theme === "light" ? "#fff" : "#171717F2")};
+  color: ${(p) => (p.theme === "light" ? "#000" : "#fff")};
   font-size: 12px;
   font-weight: 700;
   padding: 8px 12px;
@@ -59,12 +62,11 @@ export const EventImage = styled.div<EventImageProps>`
         "linear-gradient(180deg, #0099FF, #FFFFFF)"};
 `;
 
-export const EventInfo = styled.div`
+export const EventInfo = styled.div<{ theme: string }>`
   padding: 10px 12px 12px 12px;
-  background: #fff;
+  background: ${(p) => (p.theme === "light" ? "#fff" : "#323232")};
   border-bottom-left-radius: 18px;
   border-bottom-right-radius: 18px;
-  height: 100px;
   position: relative;
   z-index: 1;
 `;
@@ -98,8 +100,8 @@ export const TagsContainer = styled.div`
   gap: 4px;
 `;
 
-export const Tag = styled.span`
-  background: #f0f0f0;
+export const Tag = styled.span<{ theme: string }>`
+  background: ${(p) => (p.theme === "light" ? "#f0f0f0" : "#FFFFFF14")};
   border-radius: 4px;
   padding: 2px 6px;
   font-size: 11px;

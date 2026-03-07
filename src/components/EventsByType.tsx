@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import EventCard from "../components/EventCard";
 import type { EventItem } from "../types/events";
 import "./EventsByType.css";
@@ -11,27 +10,10 @@ import event from "../img/cob.png";
 interface EventsByTypeProps {
   type: string;
   events: EventItem[];
-  onBack: () => void;
 }
 
-function EventsByType({ type, events, onBack }: EventsByTypeProps) {
+function EventsByType({ type, events }: EventsByTypeProps) {
   // Обработчик нативной кнопки "назад"
-  useEffect(() => {
-    const handleBackButton = (event: Event) => {
-      event.preventDefault();
-      onBack(); // Возвращаемся на экран "все ивенты"
-    };
-
-    // Добавляем обработчик для нативной кнопки "назад"
-    window.addEventListener("popstate", handleBackButton);
-
-    // Добавляем запись в историю, чтобы кнопка "назад" работала правильно
-    window.history.pushState(null, "", window.location.pathname);
-
-    return () => {
-      window.removeEventListener("popstate", handleBackButton);
-    };
-  }, [onBack]);
 
   // Функция для получения градиента по типу
   const getGradientStyle = (eventType: string): React.CSSProperties => {
