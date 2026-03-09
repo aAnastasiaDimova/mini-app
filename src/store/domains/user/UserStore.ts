@@ -1,7 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import { storage } from "../../lib/localStorage";
 import type { UserProfile } from "../../../types/user";
-import { MOCK_USER } from "../../../hooks/useAuthorizade";
+import { MOCK_USER } from "../../../hooks/Authorizade";
 
 class UserStore {
   user: UserProfile | null = null;

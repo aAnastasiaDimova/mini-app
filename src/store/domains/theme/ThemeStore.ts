@@ -1,31 +1,59 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import { storage } from "../../lib/localStorage";
-import type { Theme } from "./ThemeStore.types";
+
+type Theme = "light" | "dark";
 
 class ThemeStore {
   theme: Theme = "light";
+  isTelegram: boolean = false;
 
   constructor() {
     makeAutoObservable(this);
-    this.loadTheme();
+    this.init();
   }
 
-  private loadTheme() {
-    this.theme = storage.get<Theme>("theme", "light");
-    this.applyTheme();
+  private init() {
+    if (window.Telegram?.WebApp.initData) {
+      this.isTelegram = true;
+      const tg = window.Telegram.WebApp;
+
+      this.theme = tg.colorScheme === "light" ? "light" : "dark";
+      this.applyTheme();
+
+      tg.onEvent("themeChanged", () => {
+        runInAction(() => {
+          this.theme = tg.colorScheme === "dark" ? "dark" : "light";
+          this.applyTheme();
+        });
+      });
+
+      tg.ready();
+    } else {
+      this.isTelegram = false;
+      const saved = storage.get<Theme>("theme", "light");
+      this.theme = saved;
+      this.applyTheme();
+    }
   }
 
   private applyTheme() {
     document.documentElement.setAttribute("data-theme", this.theme);
   }
 
+  private saveTheme() {
+    if (!this.isTelegram) {
+      storage.set("theme", this.theme);
+    }
+  }
+
   setTheme = (theme: Theme) => {
     this.theme = theme;
-    storage.set("theme", theme);
     this.applyTheme();
+    this.saveTheme();
   };
 
   toggleTheme = () => {
+    if (this.isTelegram) return;
     this.setTheme(this.theme === "light" ? "dark" : "light");
   };
 }
