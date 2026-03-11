@@ -7,7 +7,6 @@ export const LoginContainer = styled.div`
   align-items: center;
   min-height: 100vh;
   font-family: Arial, sans-serif;
-  box-sizing: border-box;
 `;
 
 export const Form = styled.form`
@@ -16,7 +15,7 @@ export const Form = styled.form`
   margin: 10px;
 
   input {
-    padding: 12px 16px;
+    padding: 10px;
     font-size: 16px;
     outline: none;
   }
@@ -35,7 +34,7 @@ export const Form = styled.form`
 export const InputWrapper = styled.div<{ error: boolean }>`
   width: 100%;
   position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 
   input {
     width: 100%;
@@ -43,9 +42,9 @@ export const InputWrapper = styled.div<{ error: boolean }>`
     font-size: 16px;
     line-height: 150%;
     letter-spacing: 0.01em;
-    border: 2px solid rgba(0, 0, 0, 0.05);
+    border: 1.8px solid rgba(0, 0, 0, 0.05);
     border-radius: 14px;
-    12px 16px;
+    padding: 16px;
     margin-bottom: 8px;
   }
 
@@ -66,15 +65,15 @@ export const InputWrapper = styled.div<{ error: boolean }>`
   input:not(:placeholder-shown) + label {
     top: -10px;
     left: 8px;
-    color: #007AFF;
+    color: #a2acb0;
     font-weight: 600;
     font-size: 15px;
     line-height: 147%;
     letter-spacing: 0.01em;
   }
- 
+
   input:focus {
-    border-color: #007AFF;
+    border-color: #646cff;
   }
 
   input:-webkit-autofill + label,
@@ -99,23 +98,20 @@ export const InputWrapper = styled.div<{ error: boolean }>`
     error &&
     css`
       input {
-        border-color: #e53935 !important;
-        border-width: 2px !important;
+        border-color: #e74c3c;
+        box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
       }
 
       input:focus {
-        border-color: #e53935 !important;
-      }
-
-      label {
-        color: #e53935 !important;
+        border-color: #e74c3c;
+        box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.3);
       }
     `}
 `;
 
 export const InputHint = styled.div`
   position: static;
-  color: #e53935;
+  color: #e74c3c;
   font-size: 12px;
   margin-top: 0;
   margin-bottom: 8px;
@@ -129,6 +125,18 @@ export const InputHint = styled.div`
   transition: opacity 0.2s;
   word-break: break-word;
   text-align: center;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 100%;
+    transform: translateX(-50%) rotate(180deg);
+    border-width: 7px 7px 0 7px;
+    border-style: solid;
+    border-color: #e74c3c transparent transparent transparent;
+    display: block;
+  }
 `;
 
 export const SubmitButton = styled.button<{ disabled: boolean }>`
@@ -138,7 +146,7 @@ export const SubmitButton = styled.button<{ disabled: boolean }>`
   bottom: 24px;
   display: flex;
   justify-content: center;
-  background: ${({ disabled }) => (disabled ? "#b3d1ff" : "#007aff")};
+  background: #007aff;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
@@ -151,32 +159,16 @@ export const SubmitButton = styled.button<{ disabled: boolean }>`
   text-align: center;
   color: #fff;
   border: 1px solid #e6e6e6;
-  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  cursor: pointer;
   transition: background 0.2s;
   pointer-events: auto;
-`;
 
-export const EyeButton = styled.button`
-  position: absolute;
-  right: 16px;
-  top: calc(50% - 5px);
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  font-size: 18px;
-  color: #a2acb0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-
-  &:hover {
-    color: #646cff;
-  }
-
-  &:focus {
-    outline: none;
-  }
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      background: #b3d1ff;
+      color: #fff;
+      border: 1px solid #e6e6e6;
+      cursor: not-allowed;
+    `}
 `;
