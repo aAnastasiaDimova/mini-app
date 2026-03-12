@@ -5,7 +5,10 @@ import { IconCop, IconCopy, IconEdit } from "../icon/icons.tsx";
 
 import { RouteName } from "../router/routes.tsx";
 import { observer } from "mobx-react-lite";
-import { useUser } from "../hooks/useUser.tsx";
+import { useStore } from "../store/storeProvider.tsx";
+import { useUpdateUser } from "../hooks/useUpdateUser.tsx";
+import { Loader } from "./loader.tsx";
+import type { IUpdateUser } from "../types/user.ts";
 
 const directionName: Record<number, string> = {
   0: "Frontend",
@@ -14,7 +17,9 @@ const directionName: Record<number, string> = {
 };
 
 const Account = observer(() => {
-  const { data, isLoading } = useUser();
+  const updateUser = useUpdateUser();
+  const { userStore } = useStore();
+  const data = userStore.user;
   const tgPhotoUrl = window.Telegram?.WebApp?.initDataUnsafe?.user?.photo_url;
 
   const navigate = useNavigate();
@@ -49,7 +54,7 @@ const Account = observer(() => {
   };
 
   useEffect(() => {
-    if (data && !isEditing) {
+    if (data) {
       let directionStr = "";
       if (typeof data.direction === "number") {
         directionStr = directionName[data.direction] ?? "";
@@ -102,6 +107,7 @@ const Account = observer(() => {
 
   const handleSave = () => {
     if (!data) return;
+
     const reverseDirectionMap: Record<string, number> = {
       Frontend: 0,
       Backend: 1,
@@ -109,7 +115,6 @@ const Account = observer(() => {
     };
 
     const nameParts = form.fullName.split(" ").filter(Boolean);
-
     const [surname = "", name = "", patronymic = ""] = nameParts;
 
     const directionNumber = form.direction
@@ -122,7 +127,8 @@ const Account = observer(() => {
       courseNumber = match ? parseInt(match[0], 10) : undefined;
     }
 
-    const updates = {
+    const updates: IUpdateUser = {
+      id: data.id,
       name: name || data.name,
       surname: surname || data.surname,
       patronymic: patronymic || data.patronymic,
@@ -130,20 +136,28 @@ const Account = observer(() => {
       email: form.email || data.email,
       description: form.description || data.description,
       age: form.age ? Number(form.age) : data.age,
-      course: courseNumber ?? data.course,
+      course: courseNumber,
       direction: directionNumber ?? data.direction,
       skills: techTags.length ? techTags : data.skills,
       telegramLink: form.telegramLink || data.telegramLink,
       portfolioLink: form.portfolioLink || data.portfolioLink,
+      isSubscribedToNotifications: false,
+      userRole: 2,
+      avatarUrl: data.avatarUrl,
     };
 
-    handleEditEnd();
+    updateUser.mutate(updates, {
+      onSuccess: () => {
+        handleEditEnd();
+      },
+      onError: (error) => {
+        console.error(error);
+        handleEditEnd();
+      },
+    });
   };
 
-  if (isLoading) return <div>Загрузка...</div>;
-  if (!data) {
-    return <div style={{ padding: 16 }}>Вы не авторизованы.</div>;
-  }
+  if (updateUser.isPending) return <Loader />;
 
   return (
     <S.AccountContainer isEditing={isEditing}>
