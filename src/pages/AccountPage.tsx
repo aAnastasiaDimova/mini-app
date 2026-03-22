@@ -102,7 +102,18 @@ function AccountPage() {
   };
 
   if (!user) {
-    return <div style={{ padding: 16 }}>Вы не авторизованы.</div>;
+    return (
+      <S.AccountContainer isEditing={false}>
+        <div style={{ 
+          padding: "32px 16px", 
+          textAlign: "center", 
+          color: "var(--text-color)",
+          fontSize: "17px"
+        }}>
+          Вы не авторизованы
+        </div>
+      </S.AccountContainer>
+    );
   }
 
   return (
@@ -213,16 +224,7 @@ function AccountPage() {
                           updateField("age", val);
                         }
                       }}
-                      style={{
-                        appearance: "none",
-                        WebkitAppearance: "none",
-                        MozAppearance: "none",
-                        backgroundImage: `url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>")`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundPosition: "right 16px center",
-                        backgroundSize: "16px",
-                        paddingRight: "40px",
-                      }}
+                      // стили стрелки вынесены в styled-компонент Input
                     />
                   </S.Field>
 
@@ -312,8 +314,8 @@ function AccountPage() {
                 {key === "username"
                   ? "Username"
                   : key === "email"
-                    ? "Почта"
-                    : "Телефон"}
+                  ? "Почта"
+                  : "Телефон"}
               </S.FieldLabel>
               <S.Input
                 isEditing={isEditing}
@@ -362,6 +364,7 @@ function AccountPage() {
                 </S.TechTag>
               ))}
             </S.TagsBox>
+
             <S.Field style={{ marginTop: "30px" }}>
               <S.FieldLabel
                 isEditing={isEditing}
